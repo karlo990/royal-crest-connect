@@ -1,0 +1,14 @@
+{
+  "_comment": "Copy this file to school.json and edit it. Anything left out keeps the default from app/config.py. Restart the server after a change.",
+  "terms": ["Term 1 2027", "Term 2 2027", "Term 3 2027"],
+  "classes": ["Form 1", "Form 2", "Form 3", "Form 4", "Lower 6", "Upper 6"],
+  "fee_items": [
+    {"name": "Tuition", "amount": null},
+    {"name": "Boarding", "amount": null},
+    {"name": "Development levy", "amount": null},
+    {"name": "Uniform", "amount": null}
+  ],
+  "payment_methods": ["Cash at the bursar's office", "EcoCash / InnBucks", "Bank transfer"],
+  "bank_details": ["Bank: <bank name>", "Account name: Royal Crest Academy", "Account no.: <number>", "Branch: <branch>"],
+  "invoice_due_days": 14
+}

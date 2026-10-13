@@ -1,0 +1,9 @@
+<resources>
+    <!-- Compose draws the real theme (ui/Theme.kt); this only colours the
+         window before the first frame. -->
+    <style name="Theme.RoyalCrest" parent="android:Theme.Material.Light.NoActionBar">
+        <item name="android:statusBarColor">@color/rca_navy</item>
+        <item name="android:navigationBarColor">@color/rca_navy</item>
+        <item name="android:windowBackground">@color/rca_panel</item>
+    </style>
+</resources>

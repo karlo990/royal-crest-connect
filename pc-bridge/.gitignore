@@ -1,0 +1,7 @@
+__pycache__/
+.pytest_cache/
+chat_snapshots/
+logs/
+bridge.env
+sample_*.pdf
+wa_session/
