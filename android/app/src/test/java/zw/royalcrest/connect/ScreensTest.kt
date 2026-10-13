@@ -30,7 +30,9 @@ import java.net.URL
 @OptIn(ExperimentalTestApi::class)
 @RunWith(RobolectricTestRunner::class)
 @GraphicsMode(GraphicsMode.Mode.NATIVE)
-@Config(qualifiers = "w393dp-h852dp-xxhdpi")
+// iPhone 15 Pro width; the height leaves room for a 59dp status bar on the
+// website's phone mockups (393 x 852 overall).
+@Config(qualifiers = "w393dp-h793dp-xxhdpi")
 class ScreensTest {
     @get:Rule val rule = createAndroidComposeRule<MainActivity>()
 
@@ -57,32 +59,57 @@ class ScreensTest {
     } catch (_: Exception) { false }
 
     @Test
-    fun everyScreen() {
-        assumeTrue(server != null && reachable())
-        runBlocking { Settings(ApplicationProvider.getApplicationContext()).save(SavedServer(server!!, key, "Mrs Muzunze")) }
-        rule.activityRule.scenario.recreate()
+    fun chats() {
+        start()
 
         waitFor("Mrs Moyo"); shot("1-chats")
         rule.onNodeWithText("Mrs Moyo").performClick()
-        waitFor("invoice follows"); shot("2-chat")
-        rule.activityRule.scenario.onActivity { it.onBackPressedDispatcher.onBackPressed() }
+        waitFor("fees invoice for Term 1"); shot("2-chat")
+    }
 
-        rule.onNodeWithText("Broadcast").performClick()
+    @Test
+    fun groupChat() {
+        start()
+        waitFor("Form 1 Parents 2027"); rule.onNodeWithText("Form 1 Parents 2027").performClick()
+        waitFor("Saturday 19 December"); shot("2b-group")
+    }
+
+    @Test
+    fun broadcast() {
+        start()
+        waitFor("Broadcast"); rule.onNodeWithText("Broadcast").performClick()
         waitFor("Send broadcast"); shot("3-broadcast")
+    }
 
-        rule.onNodeWithText("Fees").performClick()
+    @Test
+    fun fees() {
+        start()
+        waitFor("Fees"); rule.onNodeWithText("Fees").performClick()
         waitFor("Tariro Moyo"); shot("4-fees")
+        rule.onNodeWithText("Balances").performClick()
+        waitFor("paid "); shot("4b-balances")
+    }
+
+    @Test
+    fun newFee() {
+        start()
+        waitFor("Fees"); rule.onNodeWithText("Fees").performClick()
+        waitFor("Tariro Moyo")
         rule.onNodeWithText("New", useUnmergedTree = true).performClick()
         waitFor("Fee lines"); shot("6-new-invoice")
         rule.onNodeWithText("Receipt").performClick()
         waitFor("Amount received"); shot("7-new-receipt")
     }
 
-    @Test
-    fun invoiceScreen() {
+    private fun start() {
         assumeTrue(server != null && reachable())
         runBlocking { Settings(ApplicationProvider.getApplicationContext()).save(SavedServer(server!!, key, "Mrs Muzunze")) }
         rule.activityRule.scenario.recreate()
+    }
+
+    @Test
+    fun invoiceScreen() {
+        start()
         waitFor("Fees"); rule.onNodeWithText("Fees").performClick()
         waitFor("Tariro Moyo"); rule.onNodeWithText("Tariro Moyo").performClick()
         waitFor("Balance due"); shot("5-invoice")
