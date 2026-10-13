@@ -20,6 +20,7 @@ parts are gone, and school fees, audiences and WhatsApp polls are new.
 | `server/` | FastAPI + SQLite. Chats, messages, outbox, broadcasts, polls, fees, staff dashboard at `/`. |
 | `pc-bridge/` | Runs on a Windows PC in the office: links the school WhatsApp number (WhatsApp Web) and makes the fee PDFs. |
 | `android/` | The Android app (Kotlin, Jetpack Compose). The built APK is on the website at `/app`. |
+| `site/` | The app's landing and download page with the APK. Vercel serves this folder (`vercel.json`); it is not the server. |
 
 ## 1. Put the server online (Hugging Face Space)
 
@@ -144,9 +145,10 @@ keyPassword=…
 Keep `royalcrest-release.jks` and its password safe. Every future update must
 be signed with the same key, or phones refuse to install it over the old app.
 When releasing, raise `versionCode`/`versionName` in `app/build.gradle.kts`,
-copy the APK to `public/app/royal-crest-connect.apk` in the website repo
+copy the APK to `site/royal-crest-connect.apk` here and to
+`public/app/royal-crest-connect.apk` in the website repo
 (`karlo990/royalcrest`), and update the version and SHA-256 on
-`public/app/index.html` there.
+`site/index.html` and `public/app/index.html`.
 
 The screen tests render every screen against a running server and save
 screenshots to `app/build/screens/`:

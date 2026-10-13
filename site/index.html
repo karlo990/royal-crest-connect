@@ -1,0 +1,186 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Royal Crest Connect · Staff app</title>
+<meta name="description" content="Royal Crest Connect, the Royal Crest Academy staff app for parents' WhatsApp chats, broadcasts, polls and fee invoices.">
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#0C1638">
+<link rel="icon" type="image/png" href="favicon.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="preload" as="font" type="font/woff2" href="fonts/newsreader-latin.woff2" crossorigin>
+<link rel="preload" as="font" type="font/woff2" href="fonts/plus-jakarta-sans-latin.woff2" crossorigin>
+<style>
+  @font-face { font-family: "Newsreader"; font-style: normal; font-weight: 400 600; font-display: swap;
+               src: url("fonts/newsreader-latin.woff2") format("woff2"); }
+  @font-face { font-family: "Plus Jakarta Sans"; font-style: normal; font-weight: 400 800; font-display: swap;
+               src: url("fonts/plus-jakarta-sans-latin.woff2") format("woff2"); }
+  /* The school website's colours and type. */
+  :root {
+    --ink: #0b1533; --navy-950: #0a1330; --navy-900: #0c1638; --navy-800: #13215a;
+    --gold-500: #d2ae4c; --gold-400: #e2c26a; --gold-700: #8a6a1c;
+    --ivory: #f6f3ec; --paper: #fbfaf6; --white: #ffffff; --stone-200: #e6e0d3;
+    --text: #0b1533; --text-muted: #525a70; --on-dark: #f3f1ea; --on-dark-muted: rgba(243, 241, 234, 0.68);
+    --font-display: "Newsreader", "Iowan Old Style", "Palatino Linotype", Georgia, serif;
+    --font-sans: "Plus Jakarta Sans", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    --gutter: clamp(20px, 4vw, 48px);
+  }
+  *, *::before, *::after { box-sizing: border-box; }
+  body { margin: 0; -webkit-font-smoothing: antialiased; }
+  img { max-width: 100%; }
+  .app-page { background: var(--paper); color: var(--text); font-family: var(--font-sans); min-height: 100vh; }
+  .app-top { background: var(--navy-900); color: var(--on-dark); border-bottom: 3px solid var(--gold-500); }
+  .app-top .wrap { display: flex; align-items: center; gap: 12px; padding-block: 14px; }
+  .app-top a { color: var(--on-dark); text-decoration: none; display: inline-flex; align-items: center; gap: 10px;
+               font-family: var(--font-display); font-size: 1.15rem; }
+  .app-top img { width: 34px; height: auto; }
+  .wrap { max-width: 1080px; margin: 0 auto; padding-inline: max(16px, var(--gutter)); }
+  .hero { background: var(--navy-900); color: var(--on-dark); padding-block: clamp(40px, 7vw, 88px) 0; overflow: hidden; }
+  .hero .wrap { display: grid; grid-template-columns: minmax(0, 1.05fr) minmax(0, .95fr); gap: clamp(24px, 5vw, 64px); align-items: end; }
+  .eyebrow { font-size: .78rem; letter-spacing: .22em; text-transform: uppercase; color: var(--gold-400); font-weight: 600; margin: 0 0 14px; }
+  .hero h1 { font-family: var(--font-display); font-weight: 500; font-size: clamp(2.3rem, 5.4vw, 3.9rem); line-height: 1.04; margin: 0 0 18px; }
+  .hero p.lead { font-size: 1.08rem; line-height: 1.6; color: var(--on-dark-muted); max-width: 34em; margin: 0 0 28px; }
+  .cta { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; margin-bottom: clamp(36px, 6vw, 72px); }
+  .btn-dl { display: inline-flex; align-items: center; gap: 10px; background: var(--gold-500); color: var(--navy-950);
+            font-weight: 700; text-decoration: none; padding: 15px 22px; border-radius: 10px; font-size: 1rem; }
+  .btn-dl:hover { background: var(--gold-400); }
+  .btn-dl:focus-visible, .link:focus-visible { outline: 3px solid var(--gold-400); outline-offset: 3px; }
+  .btn-dl svg { width: 20px; height: 20px; }
+  .meta { font-size: .88rem; color: var(--on-dark-muted); }
+  .phones { display: flex; gap: 14px; justify-content: center; align-items: flex-end; }
+  .phones figure { margin: 0; flex: 0 1 220px; }
+  .phones img { display: block; width: 100%; height: auto; border-radius: 22px 22px 0 0; border: 6px solid #1d2a5c; border-bottom: 0;
+                box-shadow: 0 -10px 40px rgba(0, 0, 0, .35); }
+  .phones figure:nth-child(2) { flex-basis: 250px; }
+  .phones figure:not(:nth-child(2)) { margin-bottom: -28px; opacity: .92; }
+  section.band { padding-block: clamp(48px, 7vw, 88px); }
+  h2 { font-family: var(--font-display); font-weight: 500; font-size: clamp(1.7rem, 3.4vw, 2.4rem); line-height: 1.15; margin: 0 0 22px; color: var(--navy-900); }
+  .grid4 { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 18px; }
+  .card { background: var(--white); border: 1px solid var(--stone-200); border-radius: 14px; padding: 22px; }
+  .card h3 { font-size: 1.02rem; margin: 10px 0 6px; color: var(--navy-900); }
+  .card p { margin: 0; color: var(--text-muted); line-height: 1.55; font-size: .95rem; }
+  .card svg { width: 28px; height: 28px; color: var(--gold-700); }
+  ol.steps { list-style: none; padding: 0; margin: 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px; counter-reset: s; }
+  ol.steps li { counter-increment: s; background: var(--white); border: 1px solid var(--stone-200); border-radius: 14px; padding: 20px 20px 20px 64px; position: relative; line-height: 1.55; }
+  ol.steps li::before { content: counter(s); position: absolute; left: 18px; top: 18px; width: 32px; height: 32px; border-radius: 50%;
+                        background: var(--navy-900); color: var(--gold-400); display: grid; place-items: center; font-weight: 700; }
+  ol.steps b { color: var(--navy-900); }
+  .alt { background: var(--ivory); border-block: 1px solid var(--stone-200); }
+  .two { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: clamp(20px, 4vw, 48px); }
+  .two p, .two li { line-height: 1.65; color: var(--text-muted); }
+  .two p { margin: 0 0 14px; }
+  .two ul { list-style: disc; padding-left: 1.2em; margin: 0; }
+  .two li { margin: 0 0 8px; }
+  code, .hash { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: .85rem; background: var(--white);
+                border: 1px solid var(--stone-200); border-radius: 6px; padding: 2px 6px; overflow-wrap: anywhere; }
+  .hash { display: block; padding: 10px 12px; margin-top: 8px; }
+  .link { color: var(--navy-800); font-weight: 600; }
+  footer.app-foot { background: var(--navy-950); color: var(--on-dark-muted); padding-block: 28px; font-size: .9rem; }
+  footer.app-foot a { color: var(--on-dark); }
+  @media (max-width: 900px) {
+    .hero .wrap { grid-template-columns: minmax(0, 1fr); }
+    .grid4 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  }
+  @media (max-width: 620px) {
+    .grid4, ol.steps, .two { grid-template-columns: minmax(0, 1fr); }
+    .phones figure:not(:nth-child(2)) { display: none; }
+    .phones figure:nth-child(2) { flex-basis: 260px; }
+  }
+</style>
+</head>
+<body class="app-page">
+<header class="app-top">
+  <div class="wrap"><a href="https://www.royalcrest.co.zw/"><img src="crest-128.webp" alt="" width="34" height="39">Royal Crest Academy</a></div>
+</header>
+
+<main>
+  <section class="hero" aria-labelledby="title">
+    <div class="wrap">
+      <div>
+        <p class="eyebrow">For Royal Crest staff</p>
+        <h1 id="title">Royal Crest Connect</h1>
+        <p class="lead">Answer parents on WhatsApp, send notices and polls to every class group, and issue fee invoices and receipts as PDFs, all from your phone.</p>
+        <div class="cta">
+          <a class="btn-dl" href="royal-crest-connect.apk" download>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12"/><path d="m7 10 5 5 5-5"/><path d="M5 21h14"/></svg>
+            Download for Android
+          </a>
+          <span class="meta">Version 1.0 · 2.6 MB · Android 7 or newer</span>
+        </div>
+      </div>
+      <div class="phones" aria-hidden="true">
+        <figure><img src="screen-chats-360.webp" srcset="screen-chats-360.webp 360w, screen-chats-720.webp 720w" sizes="220px" alt="" width="360" height="780" loading="lazy"></figure>
+        <figure><img src="screen-invoice-360.webp" srcset="screen-invoice-360.webp 360w, screen-invoice-720.webp 720w" sizes="250px" alt="" width="360" height="780"></figure>
+        <figure><img src="screen-broadcast-360.webp" srcset="screen-broadcast-360.webp 360w, screen-broadcast-720.webp 720w" sizes="220px" alt="" width="360" height="780" loading="lazy"></figure>
+      </div>
+    </div>
+  </section>
+
+  <section class="band" aria-labelledby="what">
+    <div class="wrap">
+      <h2 id="what">What it does</h2>
+      <div class="grid4">
+        <div class="card">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12a8 8 0 0 1-11.8 7L4 20l1.1-4.6A8 8 0 1 1 21 12z"/></svg>
+          <h3>Parents' chats</h3>
+          <p>The school's WhatsApp, on every staff phone. Reply, send photos, and see when a message was delivered.</p>
+        </div>
+        <div class="card">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 11v2a1 1 0 0 0 1 1h2l5 4V6L6 10H4a1 1 0 0 0-1 1z"/><path d="M16 8a5 5 0 0 1 0 8"/><path d="M19 5a9 9 0 0 1 0 14"/></svg>
+          <h3>Broadcasts</h3>
+          <p>One notice to parents, class groups or staff. Nobody gets the same message twice.</p>
+        </div>
+        <div class="card">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20V10"/><path d="M10 20V4"/><path d="M16 20v-7"/><path d="M22 20H2"/></svg>
+          <h3>Polls</h3>
+          <p>Parents reply with a number and the app counts the votes for you.</p>
+        </div>
+        <div class="card">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 3h12v18l-3-2-3 2-3-2-3 2z"/><path d="M9 8h6"/><path d="M9 12h6"/></svg>
+          <h3>Fees</h3>
+          <p>Invoices and receipts on the school letterhead, sent to the parent as a PDF. Balances are tracked per pupil.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="band alt" aria-labelledby="install">
+    <div class="wrap">
+      <h2 id="install">Install it</h2>
+      <ol class="steps">
+        <li><b>Download</b> the app on your Android phone with the button above.</li>
+        <li><b>Open the file.</b> If Android asks, allow your browser to install apps (Settings → Install unknown apps), then tap Install. It's signed by Royal Crest Academy.</li>
+        <li><b>Open Royal Crest Connect</b> and type the server address and access key. Ask the school office for them; they're never shared publicly.</li>
+        <li><b>Type your name</b> and tap Connect. Your name shows on the replies you send, so colleagues know who answered.</li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="band" aria-labelledby="office">
+    <div class="wrap two">
+      <div>
+        <h2 id="office">For the school office</h2>
+        <p>The app talks to the school's own server, which keeps the chats, polls and fee records. A PC in the office links it to the school WhatsApp number and makes the PDFs.</p>
+        <p>The bursar can also use everything from a computer: open the server address in a browser and sign in.</p>
+        <p><a class="link" href="https://github.com/karlo990/royal-crest-connect#readme">Setup guide for the server and the office PC</a></p>
+      </div>
+      <div>
+        <h2>Good to know</h2>
+        <ul>
+          <li>For staff only. Without the access key the app shows nothing.</li>
+          <li>Messages go out from the school's WhatsApp number, a few seconds apart.</li>
+          <li>Fee amounts are typed by the bursar; nothing is filled in until the fee schedule is set.</li>
+          <li>To check the download, its SHA-256 fingerprint is:
+            <span class="hash">d6ba7d3715df68db7f0b18e78c50998dc82855170f64d8a4a92d5acae300b90d</span></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="app-foot">
+  <div class="wrap">Royal Crest Academy · 1226 Chinobva, Nyika, Masvingo · <a href="tel:+263714404090">+263 714 404 090</a> · <a href="https://www.royalcrest.co.zw/">Back to the website</a></div>
+</footer>
+</body>
+</html>
